@@ -69,7 +69,7 @@ _start:
     call salto
     call salto
 
-; =================================================
+; ================================================= SUMA
 
     ; ; se muestra el mensaje de suma
     ; mov edx, suma
@@ -89,7 +89,7 @@ _start:
     ; call printHex
     ; call salto
 
-; ============================================
+; ============================================ CICLO PRUEBA
 
     ; ciclo de prueba
     ; mov cx, 5
@@ -100,7 +100,7 @@ _start:
     ; call salto
     ; call salto
 
-; ============================================
+; ============================================ MULTIPLICACION
 
     ; se muestra el mensaje de multiplicacion
     mov edx, multi
@@ -121,7 +121,7 @@ _start:
     call printHex
     call salto
 
-    ; se usa numero 1 como contador de iteraciones para la realizacion de la multiplicacion
+    ; se usa el primer numero como contador de iteraciones para la realizacion de la multiplicacion
     mov cl, [ebx]
 
     ; se genera la multiplicacion
@@ -138,7 +138,7 @@ _start:
     loop mult
     call salto
 
-    ; se imprume la multiplicacion
+    ; se imprime la multiplicacion
     mov eax, 0
     mov ebx, resultado
     mov al, [ebx]
