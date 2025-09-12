@@ -1,4 +1,4 @@
-**ACTUALIZA LA DESTA**
+**ACTUALIZA**
 sudo apt update
 
 **INSTALA NASM**
@@ -17,3 +17,5 @@ cd /workspaces/OAC/<CARPETA>
 nasm -f elf p3.asm
 ld -m elf_i386 -s -o <CARPETA> <ARCHIVO>.o libpc_io.apt
 ./<CARPETA>
+
+comp
