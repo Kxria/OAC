@@ -1,31 +1,32 @@
+; se incluye la libreria pc_io
 %include "./pc_io.inc"
 
 section .text
 	global _start:
 
 _start:
-    ; se muestra el mensaje de captura n1
+    ; se muestra el mensaje de captura del primer numero
     mov edx, msg
     call puts
     call salto
 
     ; se captura el primer numero y se guarda
-    mov eax, 0
+    mov eax, 0 ; puede estar comentado
     call getch
     mov ebx, numero
     mov [ebx], al
-    mov esi, cad
-    call printHex
-    call salto
+    mov esi, cad ; puede estar comentado
+    call printHex ; puede estar comentado
+    call salto ; puede estar comentado
 
     ; se convierte a numero
     mov ebx, numero
     sub byte[ebx], '0'
 
     ; se muestra el mensaje de conversion
-    mov edx, msg2
-    call puts
-    call salto
+    mov edx, msg2 ; puede estar comentado
+    call puts ; puede estar comentado
+    call salto ; puede estar comentado
 
     ; se imprime el numero convertido
     mov eax, 0
@@ -42,22 +43,22 @@ _start:
     call salto
 
     ; se captura el segundo numero y se guarda
-    mov eax, 0
+    mov eax, 0 ; puede estar comentado
     call getch
     mov ebx, numero2
     mov [ebx], al
-    mov esi, cad
-    call printHex
-    call salto
+    mov esi, cad ; puede estar comentado
+    call printHex ; puede estar comentado
+    call salto ; puede estar comentado
 
     ; se convierte a numero
     mov ebx, numero2
     sub byte [ebx], '0'
 
     ; se muestra el mensaje de conversion
-    mov edx, msg2
-    call puts
-    call salto
+    mov edx, msg2 ; puede estar comentado
+    call puts ; puede estar comentado
+    call salto ; puede estar comentado
 
     ; se imprime el numero convertido
     mov eax, 0
@@ -67,6 +68,8 @@ _start:
     call printHex
     call salto
     call salto
+
+; =================================================
 
     ; ; se muestra el mensaje de suma
     ; mov edx, suma
@@ -85,7 +88,8 @@ _start:
     ; mov esi, cad
     ; call printHex
     ; call salto
-    ; call salto
+
+; ============================================
 
     ; ciclo de prueba
     ; mov cx, 5
@@ -97,6 +101,7 @@ _start:
     ; call salto
 
 ; ============================================
+
     ; se muestra el mensaje de multiplicacion
     mov edx, multi
     call puts
@@ -186,7 +191,7 @@ printHex:
     popad
     ret
 
-section .data	;Datos inicializados
+section .data
     msg: db "Ingresa un numero (0-9)", 0x0
     len: equ $-msg
 
