@@ -91,14 +91,14 @@ _start:
 
 ; ============================================ CICLO PRUEBA
 
-    ; ciclo de prueba
-    ; mov cx, 5
-    ; ciclo:
-    ;     mov al, 48
-    ;     call putchar
-    ; loop ciclo
-    ; call salto
-    ; call salto
+;     ciclo de prueba
+;     mov cx, 5
+;     ciclo:
+;         mov al, 48
+;         call putchar
+;     loop ciclo
+;     call salto
+;     call salto
 
 ; ============================================ MULTIPLICACION
 
@@ -107,22 +107,14 @@ _start:
     call puts
     call salto
 
-    ; se setean los registros para comenzar la suma
+    ; se setean los registros para comenzar la multiplicacion
     mov ebx, resultado      ; *EBX = &resultado
     mov byte [ebx], 0       ; *EBX = 0 ==> resultado = 0
     mov ebx, numero2        ; *EBX = &numero2
     mov dl, [ebx]           ; DL = *EBX ==> DL = *numero2
 
     mov ebx, numero         ; *EBX = &numero
-
-    mov eax, 0              ; EAX = 0
-    mov al, [ebx]           ; AL = *EBX ==> AL = *numero
-    mov esi, cad
-    call printHex
-    call salto
-
-    ; se usa el primer numero como contador de iteraciones para la realizacion de la multiplicacion
-    mov cl, [ebx]
+    mov cl, [ebx]           ; se usa el primer numero como contador de iteraciones para la realizacion de la multiplicacion
 
     ; se genera la multiplicacion
     mult:
@@ -146,6 +138,67 @@ _start:
     call printHex
     call salto
     call salto
+
+; =========================================== DIVISION
+
+    ; se muestra el mensaje de division
+    mov edx, divi
+    call puts
+    call salto
+
+    ; se setean los registros para comenzar la division
+    mov ebx, numero         ; *EBX = &numero = 3
+    mov dl, [ebx]           ; DL = *EBX ==> DL = *numero = 3
+    mov cl, 0         ; se usa el primer numero como contador de iteraciones para la realizacion de la division
+    mov ebx, resultado      ; resultado 3 x 4 = 12
+
+    ; se genera la division
+    div:
+        sub byte[ebx], dl
+        add cl, 1
+        cmp al, 0
+        je fin
+        jmp div
+    fin:
+    call salto
+
+    ; se imprime la division
+    mov eax, 0
+    mov al, cl
+    mov esi, cad
+    call printHex
+    call salto
+    call salto
+
+
+; ====================================== contador del 1 al 100 (64h)
+; FALTA HACER QUE IMPRIMA SOLO LOS PARES
+
+; USAR cmp al, 0 ; el 0 debe irse sumando 2 en 2
+; USAR DOS SUBRUTINAS. UNA PARA IMPRIMIR Y SUMAR + 2 Y OTRA PARA SOLO SUMAR + 2
+
+    ; se muestra el mensaje del contador
+    mov edx, cont
+    call puts
+    call salto
+
+    mov ebx, contador
+    mov byte[ebx], 0
+
+    mov cl, 100
+    ciclo:
+        mov ebx, contador
+        add byte[ebx], 1
+        
+        ; se imprime la suma
+        mov ebx, contador
+        mov eax, [ebx]
+        mov esi, cad
+        call printHex
+        call salto
+    loop ciclo
+
+; =======================================
 
     ; SYS_EXIT
 	mov eax, 1
@@ -204,8 +257,15 @@ section .data
     multi: db "Multiplicacion", 0x0
     len4: equ $-multi
 
+    divi: db "Division", 0x0
+    len5: equ $-divi
+
+    cont: db "Contador del 1 al 100 (de 2 en 2)", 0x0
+    len6: equ $-cont
+
 section .bss	;Datos no inicializados
     numero resb 1
     numero2 resb 1
     cad resb 12
     resultado resb 10
+    contador resb 10
