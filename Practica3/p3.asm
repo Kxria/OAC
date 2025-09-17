@@ -146,19 +146,37 @@ _start:
     call puts
     call salto
 
+    ; se imprime la multiplicacion
+    mov eax, 0
+    mov ebx, resultado
+    mov al, [ebx]
+    mov esi, cad
+    call printHex
+    call salto
+
+
     ; se setean los registros para comenzar la division
     mov ebx, numero         ; *EBX = &numero = 3
     mov dl, [ebx]           ; DL = *EBX ==> DL = *numero = 3
+    
     mov cl, 0         ; se usa el primer numero como contador de iteraciones para la realizacion de la division
+    
     mov ebx, resultado      ; resultado 3 x 4 = 12
+    mov al, [ebx]
 
     ; se genera la division
     div:
-        sub byte[ebx], dl
+        sub al, dl
         add cl, 1
         cmp al, 0
         je fin
+
+        ; se imprime la como se va restando
+        mov esi, cad
+        call printHex
+        call salto
         jmp div
+
     fin:
     call salto
 
@@ -170,40 +188,78 @@ _start:
     call salto
     call salto
 
-
 ; ====================================== contador del 1 al 100 (64h)
-; FALTA HACER QUE IMPRIMA SOLO LOS PARES
-
-; USAR cmp al, 0 ; el 0 debe irse sumando 2 en 2
-; USAR DOS SUBRUTINAS. UNA PARA IMPRIMIR Y SUMAR + 2 Y OTRA PARA SOLO SUMAR + 2
 
     ; se muestra el mensaje del contador
     mov edx, cont
     call puts
     call salto
 
+    ; se setea contador = 0
     mov ebx, contador
     mov byte[ebx], 0
 
+    ; cl = 100 (numero de iteraciones)
     mov cl, 100
-    ciclo:
-        mov ebx, contador
+    cic:
+        ; suma 1 a ebx -> contador
         add byte[ebx], 1
         
-        ; se imprime la suma
+        ; se imprime el contenido de contador
+        mov eax, 0
         mov ebx, contador
         mov eax, [ebx]
         mov esi, cad
         call printHex
         call salto
-    loop ciclo
+    loop cic
+    call salto
 
-; =======================================
+; ======================================= 1 - 100 (2 en 2)
+
+    ; mostrar mensaje del contador
+    mov edx, cont2
+    call puts
+    call salto
+
+    ; setear contador = 0
+    mov ebx, contador
+    mov byte [ebx], 0
+
+    ; cl = 100 (numero de iteraciones)
+    mov cl, 100
+
+    ciclo:
+        ; sumar 1 al contador
+        add byte [ebx], 1
+
+        ; llamar subrutina que verifica si es par e imprime si aplica
+        mov al, [ebx]       ; cargar contador en AL
+        call par
+        loop ciclo
 
     ; SYS_EXIT
-	mov eax, 1
-	mov ebx, 0
-	int 80h
+    mov eax, 1
+    mov ebx, 0
+    int 80h
+
+; ========================================
+
+par:
+    cmp al, 1
+    je impar           ; si al es
+    sub al, 2
+    ja par            ; si aún es mayor que 1 → seguir restando
+
+imprimir:
+    mov eax, [ebx]
+    mov esi, cad
+    call printHex
+    call salto
+    ret
+
+impar:
+    ret
 
 salto:
     pushad
@@ -260,10 +316,13 @@ section .data
     divi: db "Division", 0x0
     len5: equ $-divi
 
-    cont: db "Contador del 1 al 100 (de 2 en 2)", 0x0
+    cont: db "Contador del 1 al 100", 0x0
     len6: equ $-cont
 
-section .bss	;Datos no inicializados
+    cont2: db "Contador del 1 al 100 (de 2 en 2)", 0x0
+    len7: equ $-cont2
+
+section .bss
     numero resb 1
     numero2 resb 1
     cad resb 12
