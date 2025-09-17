@@ -3,6 +3,8 @@ section .text
 	global _start:
 
 _start:
+; ============================================= CAPTURA DE DATOS
+
     ; se muestra el mensaje de captura del primer numero
     mov edx, msg
     call puts
@@ -64,37 +66,6 @@ _start:
     mov al, [ebx]
     mov esi, cad
     call printHex
-    call salto
-    call salto
-
-; ================================================= SUMA
-
-    ; se muestra el mensaje de suma
-    mov edx, suma
-    call puts
-    call salto
-
-    ; se hace la suma de ambos digitos (usando el reg. al)
-    mov ebx, numero
-    add byte[ebx], al
-    mov al, [ebx]
-
-    ; se imprume la suma
-    mov eax, 0
-    mov ebx, numero
-    mov al, [ebx]
-    mov esi, cad
-    call printHex
-    call salto
-
-; ============================================ CICLO PRUEBA
-
-    ciclo de prueba
-    mov cx, 5
-    ciclo:
-        mov al, 48
-        call putchar
-    loop ciclo
     call salto
     call salto
 
@@ -307,20 +278,17 @@ section .data
     msg2: db "Numero convertido: ", 0x0
     len2: equ $-msg2
 
-    suma: db "Suma", 0x0
-    len3: equ $-suma
-
     multi: db "Multiplicacion", 0x0
-    len4: equ $-multi
+    len3: equ $-multi
 
     divi: db "Division", 0x0
-    len5: equ $-divi
+    len4: equ $-divi
 
     cont: db "Contador del 1 al 100", 0x0
-    len6: equ $-cont
+    len5: equ $-cont
 
     cont2: db "Contador del 1 al 100 (de 2 en 2)", 0x0
-    len7: equ $-cont2
+    len6: equ $-cont2
 
 section .bss
     numero resb 1
