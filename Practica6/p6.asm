@@ -159,69 +159,69 @@ invertir:
     ret
 
 
-; contarVocales: ; LA CADENA VA A IR EN EBX
-;     pushad
-;     mov edi, 0 ; reseteo del puntero de la cadena
-;     contar:
-;         cmp byte[ebx + edi], '%'
-;         je finContar
+contarVocales: ; LA CADENA VA A IR EN EBX
+    pushad
+    mov edi, 0 ; reseteo del puntero de la cadena
+    contar:
+        cmp byte[ebx + edi], '%'
+        je finContar
 
-;         cmp byte[ebx + edi], 'A'
-;         je sumarA
+        cmp byte[ebx + edi], 'A'
+        je sumarA
 
-;         cmp byte[ebx + edi], 'E'
-;         je sumarE
+        cmp byte[ebx + edi], 'E'
+        je sumarE
 
-;         cmp byte[ebx + edi], 'I'
-;         je sumarI
+        cmp byte[ebx + edi], 'I'
+        je sumarI
 
-;         cmp byte[ebx + edi], 'O'
-;         je sumarO
+        cmp byte[ebx + edi], 'O'
+        je sumarO
 
-;         cmp byte[ebx + edi], 'U'
-;         je sumarU
+        cmp byte[ebx + edi], 'U'
+        je sumarU
 
-;         inc edi
-;         jmp contar
+        inc edi
+        jmp contar
 
-;         sumarA:
-;             mov edx, contA
-;             inc edx
-;             inc edi
-;             jmp contar
-;         sumarE:
-;             mov edx, contE
-;             inc edx
-;             inc edi
-;             jmp contar
-;         sumarI:
-;             mov edx, contI
-;             inc edx
-;             inc edi
-;             jmp contar
-;         sumarO:
-;             mov edx, contO
-;             inc edx
-;             inc edi
-;             jmp contar
-;         sumarU:
-;             mov edx, contU
-;             inc edx
-;             inc edi
-;             jmp contar
+        sumarA:
+            mov edx, contA
+            inc edx
+            inc edi
+            jmp contar
+        sumarE:
+            mov edx, contE
+            inc edx
+            inc edi
+            jmp contar
+        sumarI:
+            mov edx, contI
+            inc edx
+            inc edi
+            jmp contar
+        sumarO:
+            mov edx, contO
+            inc edx
+            inc edi
+            jmp contar
+        sumarU:
+            mov edx, contU
+            inc edx
+            inc edi
+            jmp contar
 
-;     finContar:
-;         mov edx, VocalesA
-;         call newputs
-;         call salto
+    finContar:
+        mov edx, VocalesA
+        call newputs
+        call salto
         
-;         ; falta el resto de las vocales
+        ; falta el resto de las vocales
 
-;         mov al, contA
-;         call putchar
-;         call salto
-;     popad
-;     ret
+        mov al, contA
+        call putchar
+        call salto
+    popad
+    ret
 
 newputs:
     pushad
