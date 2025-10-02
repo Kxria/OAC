@@ -39,6 +39,11 @@ _start:
     call salto
 
     ; ======================== CAPTURAR CADENA, CONTAR Y MOSTRAR LAS VOCALES QUE HAY
+    ; mov edx, vocales
+    ; call newputs
+    ; call salto
+
+    ; mov ebx, cad
     ; call contarVocales
     ; call salto
 
@@ -159,69 +164,101 @@ invertir:
     ret
 
 
-contarVocales: ; LA CADENA VA A IR EN EBX
-    pushad
-    mov edi, 0 ; reseteo del puntero de la cadena
-    contar:
-        cmp byte[ebx + edi], '%'
-        je finContar
+; contarVocales: ; LA CADENA VA A IR EN EBX
+;     pushad
+;     mov edi, 0 ; reseteo del puntero de la cadena
 
-        cmp byte[ebx + edi], 'A'
-        je sumarA
+;     contar:
+;     mov al, [ebx + edi]
+;         cmp al, '%'
+;         je finContar
 
-        cmp byte[ebx + edi], 'E'
-        je sumarE
+;         cmp al, 'A'
+;         je sumarA
 
-        cmp byte[ebx + edi], 'I'
-        je sumarI
+;         cmp al, 'E'
+;         je sumarE
 
-        cmp byte[ebx + edi], 'O'
-        je sumarO
+;         cmp al, 'I'
+;         je sumarI
 
-        cmp byte[ebx + edi], 'U'
-        je sumarU
+;         cmp al, 'O'
+;         je sumarO
 
-        inc edi
-        jmp contar
+;         cmp al, 'U'
+;         je sumarU
 
-        sumarA:
-            mov edx, contA
-            inc edx
-            inc edi
-            jmp contar
-        sumarE:
-            mov edx, contE
-            inc edx
-            inc edi
-            jmp contar
-        sumarI:
-            mov edx, contI
-            inc edx
-            inc edi
-            jmp contar
-        sumarO:
-            mov edx, contO
-            inc edx
-            inc edi
-            jmp contar
-        sumarU:
-            mov edx, contU
-            inc edx
-            inc edi
-            jmp contar
+;         inc edi
+;         jmp contar
 
-    finContar:
-        mov edx, VocalesA
-        call newputs
-        call salto
+;         sumarA:
+;             mov al, contA
+;             inc byte al
+;             mov ah, suma
+;             inc ah
+;             inc edi
+;             mov edx, VocalesA
+;             call newputs
+;             jmp contar
+;         sumarE:
+;             mov al, contE
+;             inc al
+;             mov ah, suma
+;             inc ah
+;             inc edi
+;             mov edx, VocalesA
+;             call newputs
+;             jmp contar
+;         sumarI:
+;             mov al, contI
+;             inc al
+;             mov ah, suma
+;             inc ah
+;             inc edi
+;             mov edx, VocalesA
+;             call newputs
+;             jmp contar
+;         sumarO:
+;             mov al, contO
+;             inc al
+;             mov ah, suma
+;             inc ah
+;             inc edi
+;             mov edx, VocalesA
+;             call newputs
+;             jmp contar
+;         sumarU:
+;             mov al, contU
+;             inc al
+;             mov ah, suma
+;             inc ah
+;             inc edi
+;             mov edx, VocalesA
+;             call newputs
+;             jmp contar
+
+;     finContar:
+;         mov edx, VocalesA ; imprime el prompt de las vocales A
+;         call newputs
+;         call salto
         
-        ; falta el resto de las vocales
+;         ; falta el resto de las vocales
 
-        mov al, contA
-        call putchar
-        call salto
-    popad
-    ret
+;         mov ebx, contA
+;         mov al, [ebx] ; se imprime la cantidad de vocales 'A'
+;         call putchar
+;         call salto
+
+;         mov edx, cantVocales
+;         call newputs
+;         call salto
+
+;         mov ebx, suma
+;         mov al, [ebx] ; se imprime el total de vocales
+;         call putchar
+;         call salto
+;     popad
+;     ret
 
 newputs:
     pushad
@@ -258,17 +295,19 @@ section data
 
     cad_inv: db "Cadena invertida:%"
 
+    vocales: db "Contador de vocales:%"
+
     cantVocales: db "Total de vocales:%"
 
-    VocalesA: db "Total de 'A':%"
+    VocalesA: db "Total de A:%"
 
-    VocalesE: db "Total de 'E':%"
+    VocalesE: db "Total de E:%"
 
-    VocalesI: db "Total de 'I':%"
+    VocalesI: db "Total de I:%"
 
-    VocalesO: db "Total de 'O':%"
+    VocalesO: db "Total de O:%"
 
-    VocalesU: db "Total de 'U':%"
+    VocalesU: db "Total de U:%"
 
 section .bss
     cad resb 256
@@ -279,6 +318,6 @@ section .bss
     contI resb 1
     contO resb 1
     contU resb 1
-    suma resb 10
+    suma resb 1
 
     cad_len resb 1
