@@ -1,4 +1,4 @@
-%include "./pc_io.inc"  ; se incluye la libreria
+%include "../Libreria/pc_io.inc"  ; se incluye la libreria
 section .text
 	global _start:
 

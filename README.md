@@ -1,5 +1,3 @@
-# OAC
-
 **ACTUALIZA**
 sudo apt update
 
@@ -17,5 +15,5 @@ cd /workspaces/OAC/<CARPETA>
 
 **ENSAMBLAJE Y EJECUCION**
 nasm -f elf p3.asm
-ld -m elf_i386 -s -o <CARPETA> <ARCHIVO>.o libpc_io.apt
+ld -m elf_i386 -s -o <CARPETA> <ARCHIVO>.o ../Libreria/libpc_io.a
 ./<CARPETA>

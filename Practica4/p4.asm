@@ -1,9 +1,9 @@
-%include "./pc_io.inc"  ; se incluye la libreria
+%include "../Libreria/pc_io.inc"  ; se incluye la libreria
 section .text
 	global _start:
 
 _start:
-; ============================================= CAPTURA DE DATOS
+; ========================= CAPTURA DE DATOS ========================
 
     ; se muestra el mensaje de captura del primer numero
     mov edx, msg
@@ -85,17 +85,16 @@ _start:
     mov ebx, numero         ; *EBX = &numero
     mov cl, [ebx]           ; se usa el primer numero como contador de iteraciones para la realizacion de la multiplicacion
 
-    ; se genera la multiplicacion
     mult:
-        mov ebx, resultado
-        add byte[ebx], dl
-        
+        mov ebx, resultado          ; Carga la dirección de 'resultado' en EBX
+        add byte [ebx], dl          ; Suma el valor de DL al byte apuntado por EBX (resultado)
+
         ; se imprime la suma
-        mov ebx, resultado
-        mov eax, [ebx]
-        mov esi, cad
-        call printHex
-        call salto
+        mov ebx, resultado          ; Vuelve a cargar la dirección de 'resultado' en EBX
+        mov eax, [ebx]              ; Carga el valor de 'resultado' en EAX
+        mov esi, cad                ; Carga la dirección de la cadena 'cad' en ESI
+        call printHex               ; Llama a la rutina que imprime EAX en formato hexadecimal
+        call salto                  ; Llama a la rutina que imprime un salto de línea
     loop mult
     call salto
 
