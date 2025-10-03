@@ -59,6 +59,7 @@ fin:
     call salto
 
     ; imprime la cadena actualizada
+    mov edx, cad
     call newputs
     call salto
 
@@ -70,7 +71,7 @@ fin:
 newputs:
     pushad
     prnt:
-        mov al, [ebx + esi]     ; se manda a al el caracter incial
+        mov al, [edx + esi]     ; se manda a al el caracter incial
         cmp al, '%'             ; se compara al con % 
         je finputs              ; si es verdadero, se sale del ciclo
 
