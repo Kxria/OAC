@@ -43,8 +43,7 @@ rotacion: ; CL = N. CORRIMIENTOS, AH = CF, AL = -bit
         LAHF            ; se extrae EFLAGS en AH
         and ah, 1       ; se extrae CF
         add ah, '0'     ; se convierte a caracter
-        ; push ax
-
+    
         loop_rotar:
         cmp cl, 0       ; se compara CL con 0 para ver si se acabaron las rotaciones
         je fin
@@ -62,8 +61,8 @@ rotacion: ; CL = N. CORRIMIENTOS, AH = CF, AL = -bit
             je fin_corrimiento
 
             ; se realizan los desplazamientos
-            mov bl, [edx + esi]
-            mov [edx + edi], bl
+            mov bl, [edx + edi]
+            mov [edx + esi], bl
 
             ; se decrementan los indices
             inc edi
