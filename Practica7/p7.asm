@@ -65,7 +65,7 @@ capturar:
         ciclo_cap:
             call getche         ; se captura el caracter y se almacena el al
             cmp al, '*'         ; se compara con el indicador de fin de cadena
-            je fin             ; si al == *, se sale del ciclo capturar
+            je fin              ; si al == *, se sale del ciclo capturar
 
             cmp al, 13          ; si al == ENTER, no se captura
             je ciclo_cap
@@ -75,7 +75,7 @@ capturar:
             
             mov [ebx + edi], al ; se coloca el caracter capturado en ebx + indice (edi)
             inc edi             ; se incrementa el indice
-            jmp ciclo_cap        ; se reinicia el ciclo
+            jmp ciclo_cap       ; se reinicia el ciclo
 
         fin:
         mov al, '%'             ; se coloca el caracter '%' en al
@@ -157,7 +157,7 @@ salto:
     popad
     ret
 
-section data
+section .data
     cad_prompt: db "Ingresa una cadena: (que termine en *):%"
 
     cad_ingresada: db "Cadena ingresada:%"
@@ -166,12 +166,7 @@ section data
     char_prompt: db "Ingresa un caracter a buscar:%"
     contar_prompt: db "El caracter ingresado aparece en la cadena:%"
     tabla: db '0','1','2','3','4','5','6','7','8','9'
-
-    romanos: db 'I',0,'II',0,'III',0,'IV',0,'V',0,'VI',0,'VII',0,'VIII',0,'IX',0,'X',0
-    romanos2: db 'I','II','III','IV','V','VI','VII','VIII','IX','X'
-
-    binario: db '0000','%','0001','%','0010','%','0011','%','0100','%','0101','%','0110','%','0111','%','1000','%','1001','%','1010','%','1011','%','1100','%','1101','%','1110','%','1111','%'
-
+    
 section .bss
     cad resb 256
     caracter resb 1
@@ -179,72 +174,3 @@ section .bss
     cad_len resb 1
 
     numero resb 1
-
-; convertir_romanos: ; FALTA HACER
-;     pushad
-;         mov eax, 0                      ; se reinicia eax en cero para resetear AL y usarlo como contador
-;         mov cl, 0                       ; registro que usaremos como contador
-;         ciclo_contar_romanos:
-;             mov al, [ebx + edi]         ; se manda el caracter a comparar a AL
-;             cmp al, '%'                 ; se verifica si ya se llego al final de la cadena
-;             je fin_contar_romanos       ; si se llega al final, se sale del bucle
-
-;             cmp al, [edx]               ; se compara AL con el caracter a buscar
-;             je sumar_romanos            ; de ser cierto, se le suma 1 al contador de apariciones
-
-;             inc edi                     ; se incrementa EDI para dirigirse al siguiente caracter
-;             jmp ciclo_contar_romanos    ; se continua el bucle
-;         sumar_romanos:
-;             inc cl                      ; se incrementa CL en 1 para acumular apariciones
-;             inc edi                     ; se incrementa EDI en 1 para dirigirse al siguiente caracter
-;             jmp ciclo_contar_romanos
-;         fin_contar_romanos:
-;         mov edx, contar_prompt          ; se imprime el prompt
-;         call newputs                    
-;         call salto
-
-;         mov ebx, tabla                  ; se manda la direccion de la tabla a EDX
-;         mov al, cl                      ; se copia el contador a CL
-;         xlat                            ; es extrae y guarda el numero de apariciones en AL
-;         call putchar                    ; imprime el numero de iteraciones
-;         call salto
-;     popad
-;     ret
-
-; convertir_bin: ; FALTA HACER
-;     pushad
-
-;         mov eax, 0
-;         mov ecx, 5 ; numero a convertir a binario
-
-;         ciclo_bin:
-
-;             loop ciclo_bin
-        ; mov eax, 0                      ; se reinicia eax en cero para resetear AL y usarlo como contador
-        ; mov cl, 0                       ; registro que usaremos como contador
-        ; ciclo_contar_bin:
-        ;     mov al, [ebx + edi]         ; se manda el caracter a comparar a AL
-        ;     cmp al, '%'                 ; se verifica si ya se llego al final de la cadena
-        ;     je fin_contar_bin               ; si se llega al final, se sale del bucle
-
-        ;     cmp al, [edx]               ; se compara AL con el caracter a buscar
-        ;     je sumar_bin                    ; de ser cierto, se le suma 1 al contador de apariciones
-
-        ;     inc edi                     ; se incrementa EDI para dirigirse al siguiente caracter
-        ;     jmp ciclo_contar_bin            ; se continua el bucle
-        ; sumar_bin:
-        ;     inc cl                      ; se incrementa CL en 1 para acumular apariciones
-        ;     inc edi                     ; se incrementa EDI en 1 para dirigirse al siguiente caracter
-        ;     jmp ciclo_contar_bin
-        ; fin_contar_bin:
-        ; mov edx, contar_prompt          ; se imprime el prompt
-        ; call newputs                    
-        ; call salto
-
-        ; mov ebx, tabla                  ; se manda la direccion de la tabla a EDX
-        ; mov al, cl                      ; se copia el contador a CL
-        ; xlat                            ; es extrae y guarda el numero de apariciones en AL
-        ; call putchar                    ; imprime el numero de iteraciones
-        ; call salto
-    ; popad
-    ; ret

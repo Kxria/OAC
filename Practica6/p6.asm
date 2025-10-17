@@ -38,15 +38,6 @@ _start:
     call newputs
     call salto
 
-    ; ======================== CAPTURAR CADENA, CONTAR Y MOSTRAR LAS VOCALES QUE HAY
-    ; mov edx, vocales
-    ; call newputs
-    ; call salto
-
-    ; mov ebx, cad
-    ; call contarVocales
-    ; call salto
-
     ; ======================== CAPTURAR CADENA E INVERTIRLA
     ; imprimir prompt
     mov edx, prompt2
@@ -162,103 +153,6 @@ invertir:
     fin_invertir:
     popad
     ret
-
-
-; contarVocales: ; LA CADENA VA A IR EN EBX
-;     pushad
-;     mov edi, 0 ; reseteo del puntero de la cadena
-
-;     contar:
-;     mov al, [ebx + edi]
-;         cmp al, '%'
-;         je finContar
-
-;         cmp al, 'A'
-;         je sumarA
-
-;         cmp al, 'E'
-;         je sumarE
-
-;         cmp al, 'I'
-;         je sumarI
-
-;         cmp al, 'O'
-;         je sumarO
-
-;         cmp al, 'U'
-;         je sumarU
-
-;         inc edi
-;         jmp contar
-
-;         sumarA:
-;             mov al, contA
-;             inc byte al
-;             mov ah, suma
-;             inc ah
-;             inc edi
-;             mov edx, VocalesA
-;             call newputs
-;             jmp contar
-;         sumarE:
-;             mov al, contE
-;             inc al
-;             mov ah, suma
-;             inc ah
-;             inc edi
-;             mov edx, VocalesA
-;             call newputs
-;             jmp contar
-;         sumarI:
-;             mov al, contI
-;             inc al
-;             mov ah, suma
-;             inc ah
-;             inc edi
-;             mov edx, VocalesA
-;             call newputs
-;             jmp contar
-;         sumarO:
-;             mov al, contO
-;             inc al
-;             mov ah, suma
-;             inc ah
-;             inc edi
-;             mov edx, VocalesA
-;             call newputs
-;             jmp contar
-;         sumarU:
-;             mov al, contU
-;             inc al
-;             mov ah, suma
-;             inc ah
-;             inc edi
-;             mov edx, VocalesA
-;             call newputs
-;             jmp contar
-
-;     finContar:
-;         mov edx, VocalesA ; imprime el prompt de las vocales A
-;         call newputs
-;         call salto
-        
-;         ; falta el resto de las vocales
-
-;         mov ebx, contA
-;         mov al, [ebx] ; se imprime la cantidad de vocales 'A'
-;         call putchar
-;         call salto
-
-;         mov edx, cantVocales
-;         call newputs
-;         call salto
-
-;         mov ebx, suma
-;         mov al, [ebx] ; se imprime el total de vocales
-;         call putchar
-;         call salto
-;     popad
-;     ret
 
 newputs:
     pushad

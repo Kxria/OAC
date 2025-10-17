@@ -44,9 +44,11 @@ _start:
 
     ; se captura el segundo numero y se guarda
     mov eax, 0          ; puede estar comentado
+    
     call getch
     mov ebx, numero2
     mov [ebx], al
+
     mov esi, cad        ; puede estar comentado
     call printHex       ; puede estar comentado
     call salto          ; puede estar comentado
