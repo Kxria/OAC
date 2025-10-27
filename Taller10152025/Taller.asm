@@ -4,16 +4,20 @@ section .text
 	global _start:
 
 _start:
+    ; se imprime la cadena binaria a modificar
     mov edx, bin
     call newputs
     call salto
 
-    call corrimiento
+    mov cx, 1                ; se indica la cantidad de corrimientos deseados
+    call corrimientoRight    ; se manda a llamar a la rutina
 
-    mov edx, bin
+    ; se imprime la cadena binaria modificada
+    mov edx, bin        
     call newputs
     call salto
 
+    ; sys_exit
     mov eax, 1
     mov ebx, 0
     int 80h
@@ -24,32 +28,36 @@ _start:
         ;   | | | | | | |
         ;   0 1 2 3 4 5 6 7
 
-    corrimiento:
+    ; SHR
+    corrimientoRight:
     pushad
-    mov cl, 1
-    loop_corrimiento:
-        mov edi, 7
-        mov esi, 6
-        cmp cl, 0
-        je fin
+    loop_corrimientoRight:
+        mov edi, 7      ; apuntador al final de la cadena antes del '%'
+        mov esi, 6      ; apuntador al antepenultimo caracter de la cadena antes del "%"
+        cmp cl, 0       ; se compara CL con 0 para verificar si se terminaron los corrimientos
+        je fin          ; si es verdadero, se sale de la rutina
 
-        mov ah, [edx + edi]
-        sub ah, '0'
-        sahf
+        mov ah, [edx + edi]     ; se almacena el -bit de la cadena
+        sub ah, '0'             ; se convierte a su valor numerico
+        SAHF                    ; se manda ese bit al CF
+
         loop2:
-            cmp edi, 0
-            je fin_loop2
+            cmp edi, 0          ; se compara EDI para verificar el fin del corrimiento
+            je fin_loop2        ; si es verdadero, se sale del ciclo de corrimientos
 
-            mov ah, [edx + esi]
-            mov [edx + edi], ah
+            mov ah, [edx + esi] ; se almacena en AH el caracter anterior al que apunta EDI
+            mov [edx + edi], ah ; se reemplaza el caracter apuntado por EDI con el anterior a este
 
+            ; se decrementan los indices para seguir con el siguiente par a recorrer
             dec esi
             dec edi
             jmp loop2
+
+        ; una vez terminados los corrimientos
         fin_loop2:
-            mov byte [edx], '0'
-            dec cl
-            jmp loop_corrimiento
+            mov byte [edx], '0'     ; se ingresa un 0 en el bit mas significativo
+            dec cl                  ; se decrementa CL para indicar que se realizo un corrimiento
+            jmp loop_corrimientoRight
     fin:
     popad
     ret
@@ -80,91 +88,5 @@ salto:
 
 section .data
     bin: db "01010000%", 0x0A
-    len: equ $-bin
 section .bss
     cad resb 5
-
-; %include "../Libreria/pc_io.inc"  ; se incluye la libreria
-
-; section .text
-; 	global _start:
-
-; _start:
-;     mov edx, bin
-;     call newputs
-;     call salto
-
-;     call corrimiento
-
-;     mov edx, bin
-;     call newputs
-;     call salto
-
-;     mov eax, 1
-;     mov ebx, 0
-;     int 80h
-
-;     ; bin = 0 1 0 1 0 0 0 0
-;         ;   | | | | | | |
-;         ;   0 1 2 3 4 5 6 7
-
-;     corrimiento:
-;     pushad
-;     mov cl, 7
-;     loop_corrimiento:
-;         mov edi, 7
-;         mov esi, 6
-;         mov ch, 7
-
-;         mov ah, [edx + 7]
-;         sub ah, '0'
-;         SAHF
-        
-;         loop2:
-;             cmp ch, 0
-;             je _fin
-
-;             mov ah, [edx + esi]
-;             mov [edx + edi], ah
-
-;             dec esi
-;             dec edi
-;             dec ch
-
-;             jmp loop2
-;     _fin:
-;         mov byte [edx], '0'
-;         dec cl
-;     fin:
-;     popad
-;     ret
-
-;     newputs:
-;     pushad
-;     prnt:
-;         mov al, [edx + esi]     ; se manda a al el caracter incial
-;         cmp al, '%'             ; se compara al con % 
-;         je finputs              ; si es verdadero, se sale del ciclo
-
-;         call putchar            ; se imprime al caracter actual
-;         inc esi                 ; se incrementa el indice
-;         jmp prnt                ; se reincia el cilo de impresion
-;     finputs:
-;     popad
-;     ret
-
-;     salto:
-;         pushad
-;         mov al, 13
-;         call putchar
-
-;         mov al, 10
-;         call putchar
-;         popad
-;         ret
-
-; section .data
-;     bin: db "01010110%", 0x0A
-;     len: equ $-bin
-; section .bss
-;     cad resb 5
