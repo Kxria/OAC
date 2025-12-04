@@ -17,3 +17,11 @@ cd /workspaces/OAC/<CARPETA>
 nasm -f elf p3.asm
 ld -m elf_i386 -s -o <CARPETA> <ARCHIVO>.o ../Libreria/libpc_io.a
 ./<CARPETA>
+
+=================================================================
+
+** COMANDOS C EN ASM**
+nasm -f elf ARCHIVO.asm
+gcc -m32 -c ARCHIVO.c
+gcc -m32 ARCHIVO_ASM.o ARCHIVO_C.o -o NOMBRE.exe (IGNORAR WARNING)
+./NOMBREEXE
